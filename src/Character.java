@@ -17,8 +17,12 @@ public class Character {
     {
         return potCount;
     }
+    public String getCharacter()
+    {
+        return null;
+    }
     public void attack(Character enemy) {
-        System.out.println(getName() + " attacks " + enemy.getName());
+        System.out.println(getCharacter() + " attacks " + enemy.getCharacter());
         enemy.takeDamage(damage);
     }
     public void displayInfo()
@@ -27,11 +31,11 @@ public class Character {
     }
     public void consumePot() {
         if (potCount <= 0) {
-            System.out.println(getName() + " tried to heal, but... oh dear... They don't have a pot! Too bad!");
+            System.out.println(getCharacter() + " tried to heal, but... oh dear... They don't have a pot! Too bad!");
         } else {
             health = health + 10;
             potCount = potCount - 1;
-            System.out.println(getName() + " healed for 15HP and consumed one of their health potions. HP: " + health + " Pots: " + potCount);
+            System.out.println(getCharacter() + " healed for 15HP and consumed one of their health potions. HP: " + health + " Pots: " + potCount);
         }
     }
     public void takeDamage(int enemyDamage)
@@ -45,8 +49,8 @@ public class Character {
         }
         health = health - damage;
 
-        System.out.println(getName() + " takes " + damage + " damage!");
-        System.out.println(getName() + " health after attack: " + health);
+        System.out.println(getCharacter() + " takes " + damage + " damage!");
+        System.out.println(getCharacter() + " health after attack: " + health);
     }
 
     public String getName() { return name; }

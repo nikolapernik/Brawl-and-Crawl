@@ -12,7 +12,16 @@ public class Berzerker extends Character{
             this.name = name;
         }
 
+
+        public Berzerker()
+        {
+
+        }
         // Getters
+        public String getCharacter()
+        {
+            return "Berzerker";
+        }
         public String getName() { return name; }
         public int getHealth() { return health; }
         public int getDamage() { return damage; }
@@ -24,11 +33,11 @@ public class Berzerker extends Character{
     @Override
     public void consumePot() {
         if (potCount <= 0) {
-            System.out.println(getName() + " tried to heal, but... oh dear... They don't have a pot! Too bad!");
+            System.out.println(getCharacter() + " tried to heal, but... oh dear... They don't have a pot! Too bad!");
         } else {
             health = health + 10;
             potCount = potCount - 1;
-            System.out.println(getName() + " healed for 15HP and consumed one of their health potions. HP: " + health + " Pots: " + potCount);
+            System.out.println(getCharacter() + " healed for 15HP and consumed one of their health potions. HP: " + health + " Pots: " + potCount);
         }
 
     }
@@ -45,7 +54,7 @@ public class Berzerker extends Character{
     @Override
     public void displayInfo()
     {
-        System.out.println(name + " | " + damage + " | " + armor + " | " + potCount);
+        System.out.println( " | " + damage + " | " + armor + " | " + potCount);
     }
     public void applyLifesteal()
         {
@@ -53,7 +62,7 @@ public class Berzerker extends Character{
         }
         @Override
         public void attack(Character enemy) {
-            System.out.println(name + " attacks " + enemy.getName() + "!");
+            System.out.println("Berzerker attacks " + enemy.getCharacter() + "!");
             enemy.takeDamage(damage);
             applyLifesteal();
         }
@@ -69,8 +78,8 @@ public class Berzerker extends Character{
         }
         health = health - damage;
 
-        System.out.println(getName() + " takes " + damage + " damage!");
-        System.out.println(getName() + " health after attack: " + health);
+        System.out.println(getCharacter() + " takes " + damage + " damage!");
+        System.out.println(getCharacter() + " health after attack: " + health);
     }
     }
 

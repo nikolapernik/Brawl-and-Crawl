@@ -10,20 +10,29 @@ public class Wizard extends Character {
     {
         this.name = name;
     }
+
+    public Wizard()
+    {
+
+    }
     @Override
     public void displayInfo()
     {
-        System.out.println(name + " | " + damage + " | " + armor + " | " + potCount);
+        System.out.println( " | " + damage + " | " + armor + " | " + potCount);
     }
     @Override
     public void attack(Character enemy) {
-        System.out.println(name + " attacks " + enemy.getName() + "!");
+        System.out.println( "Wizard attacks " + enemy.getCharacter() + "!");
         enemy.takeDamage(damage);
     }
     @Override
     public int getArmor()
     {
         return armor;
+    }
+    public String getCharacter()
+    {
+        return "Wizard";
     }
     public int getDamage() { return damage; }
     @Override
@@ -43,23 +52,23 @@ public class Wizard extends Character {
     @Override
     public void consumePot() {
         if (potCount <= 0) {
-            System.out.println(getName() + " tried to heal, but... oh dear... They don't have a pot! Too bad!");
+            System.out.println(getCharacter() + " tried to heal, but... oh dear... They don't have a pot! Too bad!");
         } else {
             health = health + 15;
             potCount = potCount - 1;
-            System.out.println(getName() + " healed for 15HP and consumed one of their health potions. HP: " + health + " Pots: " + potCount);
+            System.out.println(getCharacter() + " healed for 15HP and consumed one of their health potions. HP: " + health + " Pots: " + potCount);
         }
     }
     public void attackBer(Berzerker enemy) {
-        System.out.println(name + " attacks " + enemy.getName() + "!");
+        System.out.println(name + " attacks " + enemy.getCharacter() + "!");
         enemy.takeDamage(damage);
     }
     public void attackWar(Warrior enemy) {
-        System.out.println(name + " attacks " + enemy.getName() + "!");
+        System.out.println(name + " attacks " + enemy.getCharacter() + "!");
         enemy.takeDamage(damage);
     }
     public void attackJok(Joker enemy) {
-        System.out.println(name + " attacks " + enemy.getName() + "!");
+        System.out.println(name + " attacks " + enemy.getCharacter() + "!");
         enemy.takeDamage(damage);
     }
     public void takeDamage(int enemyDamage)
@@ -73,8 +82,8 @@ public class Wizard extends Character {
         }
         health = health - damage;
 
-        System.out.println(getName() + " takes " + damage + " damage!");
-        System.out.println(getName() + " health after attack: " + health);
+        System.out.println(getCharacter() + " takes " + damage + " damage!");
+        System.out.println(getCharacter() + " health after attack: " + health);
     }
 }
 
