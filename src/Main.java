@@ -9,8 +9,7 @@ public class Main {
         Scanner read = new Scanner(System.in);
         System.out.println("Welcome to Brawl and Crawl!");
         final String[] userResponse = {""};
-        while(!userResponse[0].equalsIgnoreCase("quit"))
-        {
+        while (!userResponse[0].equalsIgnoreCase("quit")) {
             userResponse[0] = "";
             Character player1 = chooseCharacter(read, "Player 1");
             Character player2 = chooseCharacter(read, "Player 2");
@@ -23,80 +22,92 @@ public class Main {
             loadingScreen.setSize(550, 300);
             JPanel loadingScreenPanel = new JPanel(new GridLayout(4, 2));
             loadingScreen.setContentPane(loadingScreenPanel);
+            loadingScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             JTextField firstCharP1 = new JTextField(current.getCharacter() + " starts first!");
             firstCharP1.setHorizontalAlignment(JTextField.CENTER);
             firstCharP1.setEditable(false);
-            firstCharP1.setBackground(Color.WHITE);
+            firstCharP1.setBackground(Color.BLACK);
+            firstCharP1.setForeground(Color.RED);
             firstCharP1.setFont(new Font("Raleway", Font.BOLD, 27));
             loadingScreenPanel.add(firstCharP1);
 
             JTextField statsCurr = new JTextField(current.getCharacter() + "'s stats: " + " | " + current.getHealth() + " | " + current.getDamage() + " | " + current.getArmor() + " | " + current.getPotCount());
             statsCurr.setHorizontalAlignment(JTextField.CENTER);
             statsCurr.setEditable(false);
-            statsCurr.setBackground(Color.WHITE);
+            statsCurr.setBackground(Color.BLACK);
+            statsCurr.setForeground(Color.RED);
             statsCurr.setFont(new Font("Raleway", Font.BOLD, 27));
             loadingScreenPanel.add(statsCurr);
             JTextField statsOth = new JTextField(other.getCharacter() + "'s stats: " + " | " + other.getHealth() + " | " + other.getDamage() + " | " + other.getArmor() + " | " + other.getPotCount());
             statsOth.setHorizontalAlignment(JTextField.CENTER);
             statsOth.setEditable(false);
-            statsOth.setBackground(Color.WHITE);
+            statsOth.setBackground(Color.BLACK);
+            statsOth.setForeground(Color.RED);
             statsOth.setFont(new Font("Raleway", Font.BOLD, 27));
             loadingScreenPanel.add(statsOth);
             JButton startButton = new JButton("Load Battle");
+            startButton.setBackground(Color.BLACK);
+            startButton.setForeground(Color.RED);
             startButton.setFont(new Font("Raleway", Font.BOLD, 30));
 
             loadingScreenPanel.add(startButton);
             loadingScreen.setVisible(true);
             startButton.addActionListener(new ActionListener() {
-                                         @Override
-                                         public void actionPerformed(ActionEvent e) {
-                                             try {
-                                                 Thread.sleep(2000);
-                                             } catch (InterruptedException ee) {
-                                                 Thread.currentThread().interrupt();
-                                                 return;
-                                             }
-                                             loadingScreen.setVisible(false);
-                                             loadingScreen.dispose();
-                                             return;
-                                         }
-                                     }
+                                              @Override
+                                              public void actionPerformed(ActionEvent e) {
+                                                  try {
+                                                      Thread.sleep(2000);
+                                                  } catch (InterruptedException ee) {
+                                                      Thread.currentThread().interrupt();
+                                                      return;
+                                                  }
+                                                  loadingScreen.setVisible(false);
+                                                  loadingScreen.dispose();
+                                                  return;
+                                              }
+                                          }
             );
-                while(loadingScreen.isVisible())
-                {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException ee) {
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
+            while (loadingScreen.isVisible()) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ee) {
+                    Thread.currentThread().interrupt();
+                    return;
                 }
+            }
             //battle loop
             JFrame battle = new JFrame("Battle");
-                battle.setSize(550, 500);
-                JPanel battlePanel = new JPanel(new GridLayout(4, 2));
-                battle.setContentPane(battlePanel);
-                battlePanel.setBackground(Color.WHITE);
+            battle.setSize(550, 500);
+            JPanel battlePanel = new JPanel(new GridLayout(5, 2));
+            battle.setContentPane(battlePanel);
+            battle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            battlePanel.setBackground(Color.BLACK);
             //i used AI to implement an image as requested in the rubric document
-            ImageIcon icon = new ImageIcon("src/Banner.png");
+            //it helped me learn about ImageIcon, as well as the importance of accurately naming your paths to the file
+            //i used it to have a banner i drew by hand during the battles :)
+            ImageIcon icon = new ImageIcon("src/Banner_New.png");
             JLabel banner = new JLabel(icon);
             battlePanel.add(banner);
             JTextField currHP = new JTextField();
-            currHP.setBackground(Color.WHITE);
+            currHP.setBackground(Color.BLACK);
+            currHP.setForeground(Color.RED);
             currHP.setFont(new Font("Raleway", Font.BOLD, 27));
             currHP.setHorizontalAlignment(JTextField.CENTER);
             battlePanel.add(currHP);
             JTextField othHP = new JTextField();
-            othHP.setBackground(Color.WHITE);
+            othHP.setBackground(Color.BLACK);
+            othHP.setForeground(Color.RED);
             othHP.setFont(new Font("Raleway", Font.BOLD, 27));
             othHP.setHorizontalAlignment(JTextField.CENTER);
             battlePanel.add(othHP);
             JTextField status = new JTextField();
             status.setEditable(false);
-            status.setBackground(Color.WHITE);
-            status.setFont(new Font("Raleway", Font.BOLD, 20) );
+            status.setBackground(Color.BLACK);
+            status.setForeground(Color.RED);
+            status.setFont(new Font("Raleway", Font.BOLD, 20));
             status.setHorizontalAlignment(JTextField.CENTER);
             battlePanel.add(status);
+            battlePanel.add(new LogoPanel()); //i used AI for this to work properly
             battle.setVisible(true);
             while (player1.getHealth() > 0 && player2.getHealth() > 0) {
                 currHP.setText(current.getCharacter() + "'s current HP: " + current.getHealth());
@@ -182,14 +193,18 @@ public class Main {
                 JPanel winScreenPanel = new JPanel(new GridLayout(2, 2));
                 winScreen.setSize(450, 300);
                 winScreen.setContentPane(winScreenPanel);
-                winScreenPanel.setBackground(Color.WHITE);
+                winScreenPanel.setBackground(Color.BLACK);
+                winScreenPanel.setForeground(Color.RED);
                 JTextField winner = new JTextField(player1.getCharacter() + " has WON!");
                 winner.setHorizontalAlignment(JTextField.CENTER);
                 winner.setFont(new Font("Raleway", Font.BOLD, 27));
+                winner.setBackground(Color.BLACK);
+                winner.setForeground(Color.RED);
                 winScreenPanel.add(winner);
                 JButton retryButton = new JButton("Play Again");
                 retryButton.setFont(new Font("Raleway", Font.BOLD, 27));
-                retryButton.setBackground(Color.WHITE);
+                retryButton.setBackground(Color.BLACK);
+                retryButton.setForeground(Color.RED);
                 winScreenPanel.add(retryButton);
                 winScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 winScreen.setVisible(true);
@@ -219,14 +234,18 @@ public class Main {
                 JPanel winScreenPanel = new JPanel(new GridLayout(2, 2));
                 winScreen.setSize(450, 300);
                 winScreen.setContentPane(winScreenPanel);
-                winScreenPanel.setBackground(Color.WHITE);
+                winScreenPanel.setBackground(Color.BLACK);
+                winScreenPanel.setForeground(Color.RED);
                 JTextField winner = new JTextField(player2.getCharacter() + " has WON!");
                 winner.setHorizontalAlignment(JTextField.CENTER);
                 winner.setFont(new Font("Raleway", Font.BOLD, 27));
+                winner.setBackground(Color.BLACK);
+                winner.setForeground(Color.RED);
                 winScreenPanel.add(winner);
                 JButton retryButton = new JButton("Play Again");
                 retryButton.setFont(new Font("Raleway", Font.BOLD, 27));
-                retryButton.setBackground(Color.WHITE);
+                retryButton.setBackground(Color.BLACK);
+                retryButton.setForeground(Color.RED);
                 winScreenPanel.add(retryButton);
                 winScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 winScreen.setVisible(true);
@@ -259,6 +278,7 @@ public class Main {
         }
         System.out.println("ThanK for playing! See you next time.");
     }
+
     // Helper method to choose character
     public static Character chooseCharacter(Scanner read, String playerLabel) {
         final String[] choice = {""};
@@ -267,20 +287,33 @@ public class Main {
         JPanel panel = new JPanel(new GridLayout(3, 2));
         frame.setSize(480, 640);
         frame.setContentPane(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JTextField titleP1 = new JTextField("Choose your");
         titleP1.setEditable(false);
         titleP1.setFont(new Font("Raleway", Font.BOLD, 35));
+        titleP1.setBackground(Color.BLACK);
+        titleP1.setForeground(Color.RED);
         JTextField titleP2 = new JTextField("character!");
+        titleP2.setBackground(Color.BLACK);
+        titleP2.setForeground(Color.RED);
         titleP2.setEditable(false);
         titleP2.setFont(new Font("Raleway", Font.BOLD, 35));
         JButton wizard = new JButton("Wizard");
         wizard.setFont(new Font("Raleway", Font.BOLD, 40));
+        wizard.setBackground(Color.BLACK);
+        wizard.setForeground(Color.RED);
         JButton warrior = new JButton("Warrior");
         warrior.setFont(new Font("Raleway", Font.BOLD, 40));
+        warrior.setBackground(Color.BLACK);
+        warrior.setForeground(Color.RED);
         JButton berzerker = new JButton("Berzerker");
         berzerker.setFont(new Font("Raleway", Font.BOLD, 40));
+        berzerker.setBackground(Color.BLACK);
+        berzerker.setForeground(Color.RED);
         JButton joker = new JButton("Joker");
         joker.setFont(new Font("Raleway", Font.BOLD, 40));
+        joker.setBackground(Color.BLACK);
+        joker.setForeground(Color.RED);
 
 
         panel.add(titleP1);
@@ -302,37 +335,37 @@ public class Main {
                                  }
         );
         warrior.addActionListener(new ActionListener() {
-                                     @Override
-                                     public void actionPerformed(ActionEvent e) {
-                                         choice[0] = "warrior";
-                                         System.out.println("Warrior chosen");
-                                         frame.setVisible(false);
-                                         frame.dispose();
-                                         return;
-                                     }
-                                 }
+                                      @Override
+                                      public void actionPerformed(ActionEvent e) {
+                                          choice[0] = "warrior";
+                                          System.out.println("Warrior chosen");
+                                          frame.setVisible(false);
+                                          frame.dispose();
+                                          return;
+                                      }
+                                  }
         );
         berzerker.addActionListener(new ActionListener() {
-                                     @Override
-                                     public void actionPerformed(ActionEvent e) {
-                                         choice[0] = "berzerker";
-                                         System.out.println("Berzerker chosen");
-                                         frame.setVisible(false);
-                                         frame.dispose();
-                                         return;
-                                     }
-                                 }
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            choice[0] = "berzerker";
+                                            System.out.println("Berzerker chosen");
+                                            frame.setVisible(false);
+                                            frame.dispose();
+                                            return;
+                                        }
+                                    }
         );
         joker.addActionListener(new ActionListener() {
-                                     @Override
-                                     public void actionPerformed(ActionEvent e) {
-                                         choice[0] = "joker";
-                                         System.out.println("Joker chosen");
-                                         frame.setVisible(false);
-                                         frame.dispose();
-                                         return;
-                                     }
-                                 }
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        choice[0] = "joker";
+                                        System.out.println("Joker chosen");
+                                        frame.setVisible(false);
+                                        frame.dispose();
+                                        return;
+                                    }
+                                }
         );
         while (choice[0].isEmpty()) {
             try {
@@ -369,4 +402,29 @@ public class Main {
 
     }
 
+
+    }
+class LogoPanel extends JPanel {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.BLACK);
+        //background
+        g.fillRect(0,0,550, 100);
+        //shields
+        g.setColor(Color.RED);
+        g.drawOval(100, 30, 40, 40);
+        g.fillRect(119, 30, 3, 40);
+        g.fillRect(100, 50, 40, 3);
+        g.drawOval(400, 30, 40, 40);
+        g.fillRect(419, 30, 3, 40);
+        g.fillRect(400, 50, 40, 3);
+
+        //swords
+        g.fillRect(230, 30, 5, 40);
+        g.fillRect(219, 55, 25, 5);
+        g.fillRect(300, 30, 5, 40);
+        g.fillRect(293, 55, 25, 5);
+
+    }
 }
